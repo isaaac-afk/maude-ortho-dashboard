@@ -1,0 +1,28 @@
+# ---- Secrets: NEVER commit these ----
+.env
+.env.local
+.env.*.local
+ingester/.env
+
+# ---- Python (ingester) ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- Node / Next.js (web app, Phase 2+) ----
+node_modules/
+.next/
+out/
+build/
+*-debug.log*
+
+# ---- OS / editor cruft ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Raw API data dumps (regenerable; keep the repo light) ----
+*.dump.json
+data/

@@ -1,3 +1,5 @@
+
+import PanelDonut from "@/components/PanelDonut";
 import { supabase } from "@/lib/supabase";
 import EventTypeChart from "@/components/EventTypeChart";
 
@@ -14,6 +16,10 @@ export default async function Home() {
     .from("v_event_type_counts")
     .select("event_type, n");
   const typeData = (typeRows ?? []) as TypeRow[];
+  const { data: panelRows } = await supabase
+    .from("v_panel_counts")
+    .select("panel, n");
+  const panelData = (panelRows ?? []) as { panel: string; n: number }[];
 
   return (
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
@@ -32,6 +38,11 @@ export default async function Home() {
         <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
           <div className="mb-4 text-sm font-medium text-gray-500">By event type</div>
           <EventTypeChart data={typeData} />
+        </div>
+
+        <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
+          <div className="mb-4 text-sm font-medium text-gray-500">Hip vs knee</div>
+          <PanelDonut data={panelData} />
         </div>
       </div>
     </main>

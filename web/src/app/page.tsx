@@ -1,21 +1,19 @@
 import { supabase } from "@/lib/supabase";
+import EventTypeChart from "@/components/EventTypeChart";
 
 export const dynamic = "force-dynamic";
 
+type TypeRow = { event_type: string; n: number };
+
 export default async function Home() {
-  // total reports
   const { count: total } = await supabase
     .from("events")
     .select("*", { count: "exact", head: true });
 
-  // breakdown by event type (counted in the database, no 1000-row cap)
   const { data: typeRows } = await supabase
     .from("v_event_type_counts")
     .select("event_type, n");
-  const typeList: [string, number][] = (typeRows ?? []).map((r) => [
-    r.event_type as string,
-    r.n as number,
-  ]);
+  const typeData = (typeRows ?? []) as TypeRow[];
 
   return (
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
@@ -32,17 +30,8 @@ export default async function Home() {
         </div>
 
         <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
-          <div className="mb-3 text-sm font-medium text-gray-500">
-            By event type
-          </div>
-          <ul className="space-y-1">
-            {typeList.map(([type, n]) => (
-              <li key={type} className="flex justify-between border-b py-1">
-                <span>{type}</span>
-                <span className="font-mono">{n.toLocaleString()}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mb-4 text-sm font-medium text-gray-500">By event type</div>
+          <EventTypeChart data={typeData} />
         </div>
       </div>
     </main>

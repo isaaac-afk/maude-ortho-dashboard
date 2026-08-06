@@ -14,7 +14,6 @@ failure modes from the free-text incident narratives.
 > failure rates.
 
 ## Why this cohort
-
 The cohort is every FDA product code classified as a hip or knee joint
 prosthesis under 21 CFR Part 888 — **55 codes total** (29 hip, 26 knee),
 generated directly from the openFDA device classification endpoint rather than

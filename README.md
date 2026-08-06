@@ -41,7 +41,6 @@ openFDA MAUDE API  ──►  ingester (Python)  ──►  Supabase / Postgres 
 - **Web app** — a Next.js read layer (in progress).
 
 ## Tech stack
-
 Python (requests, supabase) · Supabase (Postgres) · Next.js · TypeScript
 
 ## Project structure

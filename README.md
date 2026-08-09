@@ -58,7 +58,6 @@ maude-ortho-dashboard/
 ```
 
 ## Running the ingester
-
 1. Create the schema: paste `ingester/schema.sql` into the Supabase SQL Editor
    and run it (creates the tables and seeds the 55 codes).
 2. Set environment variables (see `.env.example`): `OPENFDA_API_KEY`,

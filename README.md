@@ -44,7 +44,6 @@ openFDA MAUDE API  ──►  ingester (Python)  ──►  Supabase / Postgres 
 Python (requests, supabase) · Supabase (Postgres) · Next.js · TypeScript
 
 ## Project structure
-
 ```
 maude-ortho-dashboard/
 ├── README.md

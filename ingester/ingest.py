@@ -232,7 +232,7 @@ def load(sb, events, codes, narrs):
     # order matters: events first (FKs), then children
     upsert_batches(sb.table("events"), events, "mdr_report_key")
     upsert_batches(sb.table("event_product_codes"), codes, "event_mdr_key,product_code")
-    upsert_batches(sb.table("event_narratives"), narrs, "narrative_key")
+    #upsert_batches(sb.table("event_narratives"), narrs, "narrative_key")
 
 
 # ---------------------------------------------------------------------------

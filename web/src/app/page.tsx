@@ -1,39 +1,45 @@
-
-
-import TrendChart from "@/components/TrendChart";
-import PanelDonut from "@/components/PanelDonut";
-import TopCodesChart from "@/components/TopCodesChart";
 import { supabase } from "@/lib/supabase";
 import EventTypeChart from "@/components/EventTypeChart";
+import PanelDonut from "@/components/PanelDonut";
+import TopCodesChart from "@/components/TopCodesChart";
+import TrendChart from "@/components/TrendChart";
+import YearFilter from "@/components/YearFilter";
 
 export const dynamic = "force-dynamic";
 
 type TypeRow = { event_type: string; n: number };
+type PanelRow = { panel: string; n: number };
+type CodeRow = { code: string; report_count: number };
+type YearRow = { year: number; n: number };
 
-export default async function Home() {
-  const { count: total } = await supabase
-    .from("events")
-    .select("*", { count: "exact", head: true });
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ year?: string }>;
+}) {
+  const sp = await searchParams;
+  const year = sp.year ? Number(sp.year) : null;
 
-  const { data: typeRows } = await supabase
-    .from("v_event_type_counts")
-    .select("event_type, n");
+  const { data: total } = await supabase.rpc("f_total", { p_year: year });
+
+  const { data: typeRows } = await supabase.rpc("f_event_type_counts", { p_year: year });
   const typeData = (typeRows ?? []) as TypeRow[];
-  const { data: panelRows } = await supabase
-    .from("v_panel_counts")
-    .select("panel, n");
-  const panelData = (panelRows ?? []) as { panel: string; n: number }[];
-  const { data: codeRows } = await supabase
-    .from("v_event_volume_by_code")
-    .select("code, report_count")
-    .order("report_count", { ascending: false })
-    .limit(10);
-  const codeData = (codeRows ?? []) as { code: string; report_count: number }[];
-const { data: yearRows } = await supabase
+
+  const { data: panelRows } = await supabase.rpc("f_panel_counts", { p_year: year });
+  const panelData = (panelRows ?? []) as PanelRow[];
+
+  const { data: codeRows } = await supabase.rpc("f_top_codes", { p_year: year });
+  const codeData = (codeRows ?? []) as CodeRow[];
+
+  const { data: yearRows } = await supabase
     .from("v_events_per_year")
     .select("year, n")
     .order("year");
-  const yearData = (yearRows ?? []) as { year: number; n: number }[];
+  const yearData = (yearRows ?? []) as YearRow[];
+  const years = yearData.map((r) => r.year);
+
+  const label = year ? `${year}` : "all years";
+
   return (
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
       <div className="mx-auto max-w-3xl">
@@ -43,9 +49,16 @@ const { data: yearRows } = await supabase
           not failure rates.
         </p>
 
-        <div className="mt-8 rounded-lg border bg-white p-6 shadow-sm">
-          <div className="text-sm text-gray-500">Total reports</div>
-          <div className="text-4xl font-bold">{total?.toLocaleString()}</div>
+        <div className="mt-6 flex items-center gap-3">
+          <span className="text-sm text-gray-500">Filter by year:</span>
+          <YearFilter years={years} current={year ? String(year) : ""} />
+        </div>
+
+        <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
+          <div className="text-sm text-gray-500">Total reports ({label})</div>
+          <div className="text-4xl font-bold">
+            {Number(total ?? 0).toLocaleString()}
+          </div>
         </div>
 
         <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
@@ -58,7 +71,7 @@ const { data: yearRows } = await supabase
           <PanelDonut data={panelData} />
         </div>
 
-<div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
+        <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
           <div className="mb-4 text-sm font-medium text-gray-500">
             Top 10 product codes by report volume
           </div>
@@ -66,7 +79,9 @@ const { data: yearRows } = await supabase
         </div>
 
         <div className="mt-6 rounded-lg border bg-white p-6 shadow-sm">
-          <div className="mb-4 text-sm font-medium text-gray-500">Reports per year</div>
+          <div className="mb-4 text-sm font-medium text-gray-500">
+            Reports per year (all years)
+          </div>
           <TrendChart data={yearData} />
         </div>
       </div>

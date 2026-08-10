@@ -14,7 +14,6 @@ failure modes from the free-text incident narratives.
 > failure rates.
 
 ## Why this cohort
-
 The cohort is every FDA product code classified as a hip or knee joint
 prosthesis under 21 CFR Part 888 — **55 codes total** (29 hip, 26 knee),
 generated directly from the openFDA device classification endpoint rather than
@@ -42,11 +41,9 @@ openFDA MAUDE API  ──►  ingester (Python)  ──►  Supabase / Postgres 
 - **Web app** — a Next.js read layer (in progress).
 
 ## Tech stack
-
 Python (requests, supabase) · Supabase (Postgres) · Next.js · TypeScript
 
 ## Project structure
-
 ```
 maude-ortho-dashboard/
 ├── README.md
@@ -61,7 +58,6 @@ maude-ortho-dashboard/
 ```
 
 ## Running the ingester
-
 1. Create the schema: paste `ingester/schema.sql` into the Supabase SQL Editor
    and run it (creates the tables and seeds the 55 codes).
 2. Set environment variables (see `.env.example`): `OPENFDA_API_KEY`,

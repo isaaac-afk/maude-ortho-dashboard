@@ -3,7 +3,7 @@
 A full-stack dashboard over the U.S. FDA's medical-device adverse-event data
 (MAUDE), scoped to **hip and knee joint prostheses**. It ingests raw openFDA
 reports into a Postgres database and surfaces them as a browsable, filterable
-dashboard — with a longer-term goal of using an LLM to extract structured
+dashboard with a longer-term goal of using an LLM to extract structured
 failure modes from the free-text incident narratives.
 
 > **Data disclaimer.** MAUDE is a passive surveillance system. Report counts

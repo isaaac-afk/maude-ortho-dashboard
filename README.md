@@ -21,7 +21,6 @@ hand-picked. That makes the cohort definition reproducible and defensible. The
 full list lives in [`cohort.md`](./cohort.md).
 
 ## Architecture
-
 ```
 openFDA MAUDE API  ──►  ingester (Python)  ──►  Supabase / Postgres  ──►  Next.js dashboard
    device/event.json     date-windowed pull        4 tables + a view          (read layer)

@@ -71,7 +71,6 @@ maude-ortho-dashboard/
    couple of raw records.
 
 ## Roadmap
-
 - [x] **Phase 0 — Foundations.** openFDA key, cohort locked (55 codes).
 - [x] **Phase 1 — Data pipeline.** Schema + date-windowed ingester; a sample
       year (~26k reports) loaded end to end.

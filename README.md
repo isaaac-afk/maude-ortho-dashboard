@@ -82,6 +82,5 @@ maude-ortho-dashboard/
       viewer into something that reads the reports.
 
 ## Data source & license
-
 Data from the [openFDA](https://open.fda.gov/) device adverse-event API (public
 domain). This repository's own code is released under the MIT License.

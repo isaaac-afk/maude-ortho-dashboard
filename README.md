@@ -8,7 +8,7 @@ failure modes from the free-text incident narratives.
 
 > **Data disclaimer.** MAUDE is a passive surveillance system. Report counts
 > reflect *reporting volume*, not device failure rates: reporting is voluntary
-> for some sources, duplicates exist, and there is no denominator for how many
+> for some sources, duplicates exist and there is no denominator for how many
 > devices are actually in use. Nothing here establishes that a device caused an
 > event. This project treats the data accordingly and never presents counts as
 > failure rates.

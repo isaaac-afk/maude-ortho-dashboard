@@ -1,4 +1,5 @@
 # MAUDE Orthopedic Adverse-Event Dashboard
+Medical Device Post-Market Surveillance tool.
 
 A full-stack dashboard over the U.S. FDA's medical-device adverse-event data
 (MAUDE), scoped to **hip and knee joint prostheses**. It ingests raw openFDA
@@ -19,6 +20,7 @@ prosthesis under 21 CFR Part 888  **55 codes total** (29 hip, 26 knee),
 generated directly from the openFDA device classification endpoint rather than
 hand-picked. That makes the cohort definition reproducible as well as defensible. The
 full list lives in [`cohort.md`](./cohort.md).
+
 
 ## Architecture
 ```
